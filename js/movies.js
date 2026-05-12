@@ -78,12 +78,15 @@ function displayMovies(movies) {
     noResults.style.display = 'none';
     
     container.innerHTML = movies.map(movie => createMovieCard(movie)).join('');
+    setPostersForCards();
 }
 
 function createMovieCard(movie) {
+    const poster = (movie.poster || '').trim();
+
     return `
         <div class="movie-card" data-movie-id="${movie.id}">
-            <div class="movie-poster" style="background-image: url(${movie.poster})">
+            <div class="movie-poster" data-poster-url="${poster}">
                 <div class="movie-overlay">
                     <div class="movie-rating">${movie.rating} <i class="fas fa-star"></i></div>
                     <h3 class="movie-title">${movie.title}</h3>
@@ -109,10 +112,42 @@ function createMovieCard(movie) {
     `;
 }
 
+function applyPosterBackground(el, url) {
+    if (!url) return;
+
+    // Set a temporary loading background (optional: remove if you don't want it)
+    // el.style.backgroundImage = 'none';
+
+    // Try to validate load without relying on host-specific CORS.
+    const img = new Image();
+    img.referrerPolicy = 'no-referrer';
+
+    img.onload = () => {
+        el.style.backgroundImage = `url(${url})`;
+    };
+
+    img.onerror = () => {
+        // If the host blocks hotlinking, show a neutral gradient instead of blank.
+        el.style.backgroundImage =
+            'linear-gradient(135deg, rgba(14,165,233,0.35), rgba(3,105,161,0.15))';
+    };
+
+    img.src = url;
+}
+
+function setPostersForCards() {
+    document.querySelectorAll('.movie-poster[data-poster-url]').forEach((el) => {
+        const url = el.getAttribute('data-poster-url');
+        applyPosterBackground(el, url);
+    });
+}
+
 function showMovieModal(movie) {
     const modalBody = document.getElementById('modalBody');
+    const poster = (movie.poster || '').trim();
+
     modalBody.innerHTML = `
-        <div class="modal-poster" style="background-image: url(${movie.poster})"></div>
+        <div class="modal-poster" data-poster-url="${poster}"></div>
         <div class="modal-content">
             <h2>${movie.title} <span>(${movie.year})</span></h2>
             <div class="modal-rating">${movie.rating} / 5 <i class="fas fa-star"></i></div>
@@ -132,6 +167,12 @@ function showMovieModal(movie) {
             </div>
         </div>
     `;
+
+    const modalPosterEl = document.querySelector('#movieModal .modal-poster[data-poster-url]');
+    if (modalPosterEl) {
+        const url = modalPosterEl.getAttribute('data-poster-url');
+        applyPosterBackground(modalPosterEl, url);
+    }
     
     document.getElementById('movieModal').style.display = 'flex';
 }

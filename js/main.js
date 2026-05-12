@@ -159,6 +159,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     initTrendingSlider();
 
+    // Apply poster fallbacks for any dynamically injected IMDb backgrounds
+    document.querySelectorAll('[style*="background-image: url("]').forEach((el) => {
+        const style = el.getAttribute('style') || '';
+        const match = style.match(/background-image:\s*url\(([^)]+)\)/);
+        if (match && match[1]) {
+            const url = match[1].replace(/^['"]|['"]$/g, '');
+            const img = new Image();
+            img.referrerPolicy = 'no-referrer';
+            img.onload = () => {
+                el.style.backgroundImage = `url(${url})`;
+            };
+            img.onerror = () => {
+                el.style.backgroundImage = 'linear-gradient(135deg, rgba(14,165,233,0.35), rgba(3,105,161,0.15))';
+            };
+            img.src = url;
+        }
+    });
+
     // Animate hero elements
     document.querySelectorAll('.hero-content > *').forEach((el, index) => {
         el.style.animationDelay = `${index * 0.2}s`;
