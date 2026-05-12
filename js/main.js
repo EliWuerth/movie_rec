@@ -4,65 +4,45 @@ const trendingMovies = [
         title: "Oppenheimer",
         year: 2023,
         rating: 8.2,
-        poster: "https://www.imdb.com/title/tt15398776/mediaviewer/rm2670601217/?ref_=tt_ov_i"
+        poster: "/images/oppenheimer.jpeg"
     },
     {
         title: "Barbie",
         year: 2023,
         rating: 6.8,
-        poster: "https://www.imdb.com/title/tt1517268/mediaviewer/rm431105281/?ref_=tt_ov_i"
+        poster: "/images/barbie.jpeg"
     },
     {
         title: "Dune: Part Two",
         year: 2024,
         rating: 8.4,
-        poster: "https://www.imdb.com/title/tt15239678/mediaviewer/rm1391346433/?ref_=tt_ov_i"
+        poster: "/images/dune-part2.jpeg"
     },
     {
         title: "Deadpool & Wolverine",
         year: 2024,
         rating: 7.5,
-        poster: "https://www.imdb.com/title/tt6263850/mediaviewer/rm79129601/?ref_=tt_ov_i"
+        poster: "/images/deadpool&wolverine.jpeg"
     },
     {
         title: "Inside Out 2",
         year: 2024,
         rating: 7.5,
-        poster: "https://www.imdb.com/title/tt22022452/mediaviewer/rm1568556801/?ref_=tt_ov_i"
+        poster: "/images/Inside_Out_2.jpg"
     },
     {
         title: "Spider-Man: Across the Spider-Verse",
         year: 2023,
         rating: 8.5,
-        poster: "https://www.imdb.com/title/tt9362722/mediaviewer/rm1009725185/?ref_=tt_ov_i",
+        poster: "/images/spiderman.jpeg",
     }
 ];
-
 // DOM elements
 const navLinks = document.querySelectorAll('.nav-link');
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
 const trendingSlider = document.getElementById('trendingSlider');
 const statNumbers = document.querySelectorAll('.stat-number');
-
-// Floating movie posters
-const floatingPosters = [
-    'https://www.imdb.com/title/tt15398776/mediaviewer/rm2670601217/?ref_=tt_ov_i', // oppenhiemer
-    'https://www.imdb.com/title/tt1517268/mediaviewer/rm431105281/?ref_=tt_ov_i', // barbie
-    'https://www.imdb.com/title/tt15239678/mediaviewer/rm1391346433/?ref_=tt_ov_i', // dune 2
-    'https://www.imdb.com/title/tt6263850/mediaviewer/rm79129601/?ref_=tt_ov_i',
-    'https://www.imdb.com/title/tt22022452/mediaviewer/rm1568556801/?ref_=tt_ov_i',
-    'https://www.imdb.com/title/tt9362722/mediaviewer/rm1009725185/?ref_=tt_ov_i',
-    
-];
-
-const morePosters = [
-    'https://m.media-amazon.com/images/M/MV5BMTM4NzcwNDEwM15BMl5BanBnXkFtZTgwMDU3ODIxMzA@._V1_.jpg',      // The Dark Knight
-    'https://m.media-amazon.com/images/M/MV5BNzQzOTk3OTAtNDQ0Zi00ZTVkLWI0MTEtMDllZjNkYzNjNTc4L2ltYWdlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_.jpg', // Inception
-    'https://m.media-amazon.com/images/M/MV5BNDE4OTMxMTctNmRhYy00NWE2LTg5YzItYTk0MWI1ZWRkYjriL2ltYWdlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_.jpg', // Interstellar
-    'https://m.media-amazon.com/images/M/MV5BNjViNDU4OWMtOTg3YS00YWNhLWJhYzEtOWI5MDE0YTA4ZTRlXkEyXkFqcGdeQXVyMTkxNjcxNQ@@._V1_.jpg', // Spider-Man No Way Home
-];
-
 
 // Initialize trending slider
 function initTrendingSlider() {
@@ -99,9 +79,9 @@ navLinks.forEach(link => {
 window.addEventListener('scroll', () => {
     const navbar = document.querySelector('.navbar');
     if (window.scrollY > 100) {
-        navbar.style.background = 'rgba(15, 15, 35, 0.98)';
+        navbar.style.background = 'rgba(31, 31, 75, 0.98)';
     } else {
-        navbar.style.background = 'rgba(15, 15, 35, 0.95)';
+        navbar.style.background = 'rgba(255, 255, 255, 0.85)';
     }
 });
 
@@ -147,35 +127,13 @@ const observer = new IntersectionObserver((entries) => {
 
 // Observe elements for animation
 document.addEventListener('DOMContentLoaded', () => {
-    // Set floating IMDb posters
-    const floatingCards = document.querySelectorAll('.card-float');
-    floatingCards.forEach((card, index) => {
-        if (floatingPosters[index]) {
-            card.style.backgroundImage = `url(${floatingPosters[index]})`;
-            card.style.backgroundSize = 'cover';
-            card.style.backgroundPosition = 'center';
-        }
-    });
-
     initTrendingSlider();
 
-    // Apply poster fallbacks for any dynamically injected IMDb backgrounds
-    document.querySelectorAll('[style*="background-image: url("]').forEach((el) => {
-        const style = el.getAttribute('style') || '';
-        const match = style.match(/background-image:\s*url\(([^)]+)\)/);
-        if (match && match[1]) {
-            const url = match[1].replace(/^['"]|['"]$/g, '');
-            const img = new Image();
-            img.referrerPolicy = 'no-referrer';
-            img.onload = () => {
-                el.style.backgroundImage = `url(${url})`;
-            };
-            img.onerror = () => {
-                el.style.backgroundImage = 'linear-gradient(135deg, rgba(14,165,233,0.35), rgba(3,105,161,0.15))';
-            };
-            img.src = url;
-        }
-    });
+    // Ensure hero floating cards show real posters from /images
+    if (typeof initHeroFloatingPosters === 'function') {
+        initHeroFloatingPosters();
+    }
+
 
     // Animate hero elements
     document.querySelectorAll('.hero-content > *').forEach((el, index) => {

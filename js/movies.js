@@ -1,7 +1,73 @@
 // Complete movies database
 const allMovies = [
-    // ... (same movies array from original + 20 more movies)
+    // Local poster images from /images
     {
+        id: 1,
+        title: "Barbie",
+        year: 2023,
+        genre: "comedy",
+        rating: 6.8,
+        runtime: "114 min",
+        description: "Barbie and Ken get swept into a journey through the real world.",
+        poster: "images/barbie.jpeg",
+        trailer: "https://www.youtube.com/embed/LVv1Z3oY4XQ",
+        director: "Greta Gerwig",
+        actors: "Margot Robbie, Ryan Gosling"
+    },
+    {
+        id: 2,
+        title: "Deadpool & Wolverine",
+        year: 2024,
+        genre: "action",
+        rating: 7.5,
+        runtime: "127 min",
+        description: "Two larger-than-life heroes collide in an action-packed adventure.",
+        poster: "images/deadpool&wolverine.jpeg",
+        trailer: "https://www.youtube.com/embed/INVALID",
+        director: "Shawn Levy",
+        actors: "Ryan Reynolds, Hugh Jackman"
+    },
+    {
+        id: 3,
+        title: "Dune: Part Two",
+        year: 2024,
+        genre: "sci-fi",
+        rating: 8.4,
+        runtime: "166 min",
+        description: "Paul Atreides joins forces as the universe turns against him.",
+        poster: "images/dune-part2.jpeg",
+        trailer: "https://www.youtube.com/embed/INVALID",
+        director: "Denis Villeneuve",
+        actors: "Timothée Chalamet, Zendaya"
+    },
+    {
+        id: 4,
+        title: "Inside Out 2",
+        year: 2024,
+        genre: "comedy",
+        rating: 7.5,
+        runtime: "100 min",
+        description: "New emotions arrive as Riley grows and life changes.",
+        poster: "images/Inside_Out_2.jpg",
+        trailer: "https://www.youtube.com/embed/INVALID",
+        director: "Kelsey Mann",
+        actors: "Amy Poehler, Phyllis Smith"
+    },
+    {
+        id: 5,
+        title: "Oppenheimer",
+        year: 2023,
+        genre: "drama",
+        rating: 8.2,
+        runtime: "180 min",
+        description: "The story of J. Robert Oppenheimer and the creation of the atomic bomb.",
+        poster: "images/oppenheimer.jpeg",
+        trailer: "https://www.youtube.com/embed/bK3q7kQdX5I",
+        director: "Christopher Nolan",
+        actors: "Cillian Murphy, Emily Blunt"
+    },
+    { // legacy placeholder start (rest of original array)
+        id: 1,
         id: 1,
         title: "Inception",
         year: 2010,
@@ -9,7 +75,7 @@ const allMovies = [
         rating: 4.8,
         runtime: "148 min",
         description: "A thief who steals corporate secrets through dream-sharing technology...",
-        poster: "https://via.placeholder.com/300x450/4A90E2/FFFFFF?text=Inception",
+        poster: "images/oppenheimer.jpeg",
         trailer: "https://www.youtube.com/embed/YoHD9XEInc0",
         director: "Christopher Nolan",
         actors: "Leonardo DiCaprio, Joseph Gordon-Levitt"
@@ -78,15 +144,12 @@ function displayMovies(movies) {
     noResults.style.display = 'none';
     
     container.innerHTML = movies.map(movie => createMovieCard(movie)).join('');
-    setPostersForCards();
 }
 
 function createMovieCard(movie) {
-    const poster = (movie.poster || '').trim();
-
     return `
         <div class="movie-card" data-movie-id="${movie.id}">
-            <div class="movie-poster" data-poster-url="${poster}">
+            <div class="movie-poster" style="background-image: url(${movie.poster})">
                 <div class="movie-overlay">
                     <div class="movie-rating">${movie.rating} <i class="fas fa-star"></i></div>
                     <h3 class="movie-title">${movie.title}</h3>
@@ -112,42 +175,10 @@ function createMovieCard(movie) {
     `;
 }
 
-function applyPosterBackground(el, url) {
-    if (!url) return;
-
-    // Set a temporary loading background (optional: remove if you don't want it)
-    // el.style.backgroundImage = 'none';
-
-    // Try to validate load without relying on host-specific CORS.
-    const img = new Image();
-    img.referrerPolicy = 'no-referrer';
-
-    img.onload = () => {
-        el.style.backgroundImage = `url(${url})`;
-    };
-
-    img.onerror = () => {
-        // If the host blocks hotlinking, show a neutral gradient instead of blank.
-        el.style.backgroundImage =
-            'linear-gradient(135deg, rgba(14,165,233,0.35), rgba(3,105,161,0.15))';
-    };
-
-    img.src = url;
-}
-
-function setPostersForCards() {
-    document.querySelectorAll('.movie-poster[data-poster-url]').forEach((el) => {
-        const url = el.getAttribute('data-poster-url');
-        applyPosterBackground(el, url);
-    });
-}
-
 function showMovieModal(movie) {
     const modalBody = document.getElementById('modalBody');
-    const poster = (movie.poster || '').trim();
-
     modalBody.innerHTML = `
-        <div class="modal-poster" data-poster-url="${poster}"></div>
+        <div class="modal-poster" style="background-image: url(${movie.poster})"></div>
         <div class="modal-content">
             <h2>${movie.title} <span>(${movie.year})</span></h2>
             <div class="modal-rating">${movie.rating} / 5 <i class="fas fa-star"></i></div>
@@ -167,12 +198,6 @@ function showMovieModal(movie) {
             </div>
         </div>
     `;
-
-    const modalPosterEl = document.querySelector('#movieModal .modal-poster[data-poster-url]');
-    if (modalPosterEl) {
-        const url = modalPosterEl.getAttribute('data-poster-url');
-        applyPosterBackground(modalPosterEl, url);
-    }
     
     document.getElementById('movieModal').style.display = 'flex';
 }
