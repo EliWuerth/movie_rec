@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favorites - MovieFlix</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation (same as other pages) -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-film"></i>
+                <span>MovieFlix</span>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="movies.html" class="nav-link"><i class="fas fa-list"></i> Movies</a>
+                </li>
+                <li class="nav-item">
+                    <a href="favorites.html" class="nav-link active"><i class="fas fa-heart"></i> Favorites</a>
+                </li>
+                <li class="nav-item">
+                    <a href="about.html" class="nav-link"><i class="fas fa-info-circle"></i> About</a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="favorites-page">
+        <!-- Hero Section -->
+        <section class="hero favorites-hero">
+            <div class="container">
+                <div class="favorites-header">
+                    <div class="favorites-stats">
+                        <h1 class="favorites-title">
+                            <i class="fas fa-heart"></i> Your Favorites
+                            <span id="favoritesCount" class="count-badge">0</span>
+                        </h1>
+                        <p class="favorites-subtitle">Movies you've marked as favorites. Keep track of what you love!</p>
+                    </div>
+                    <div class="favorites-actions">
+                        <button id="clearAllBtn" class="btn btn-danger" style="display: none;">
+                            <i class="fas fa-trash"></i> Clear All
+                        </button>
+                        <button id="sortBtn" class="btn btn-secondary">
+                            <i class="fas fa-sort"></i> Sort by Rating
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Favorites Grid -->
+        <section class="favorites-grid-section">
+            <div class="container">
+                <div id="favoritesGrid" class="movies-grid">
+                    <!-- Favorites loaded by JS -->
+                </div>
+                <div id="emptyState" class="empty-state">
+                    <div class="empty-icon">
+                        <i class="far fa-heart-broken"></i>
+                    </div>
+                    <h2>No favorites yet</h2>
+                    <p>Mark some movies as favorites from the Movies page to see them here.</p>
+                    <a href="movies.html" class="btn btn-primary">
+                        <i class="fas fa-arrow-left"></i> Browse Movies
+                    </a>
+                </div>
+                <div id="loadingFavorites" class="loading-spinner" style="display: none;">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Loading your favorites...</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Movie Modal (same as movies.html) -->
+    <div id="movieModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <!-- Footer (same as other pages) -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-film"></i>
+                        <span>MovieFlix</span>
+                    </div>
+                    <p>Discover, watch, and share your favorite movies with the world.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="movies.html">Movies</a></li>
+                        <li><a href="favorites.html">Favorites</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 MovieFlix. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/favorites.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

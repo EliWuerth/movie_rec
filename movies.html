@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movies - MovieFlix</title>
+    <link rel="stylesheet" href="css/style2.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Same navbar as index.html -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-film"></i>
+                <span>MovieFlix</span>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="movies.html" class="nav-link active"><i class="fas fa-list"></i> Movies</a>
+                </li>
+                <li class="nav-item">
+                    <a href="favorites.html" class="nav-link"><i class="fas fa-heart"></i> Favorites</a>
+                </li>
+                <li class="nav-item">
+                    <a href="about.html" class="nav-link"><i class="fas fa-info-circle"></i> About</a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="movies-page">
+        <section class="hero movies-hero">
+            <div class="container">
+                <div class="movies-header">
+                    <h1 class="movies-title">🎬 All Movies</h1>
+                    <div class="movies-controls">
+                        <select id="genreFilter" class="filter-select">
+                            <option value="all">All Genres</option>
+                            <option value="action">Action</option>
+                            <option value="comedy">Comedy</option>
+                            <option value="drama">Drama</option>
+                            <option value="horror">Horror</option>
+                            <option value="sci-fi">Sci-Fi</option>
+                            <option value="romance">Romance</option>
+                        </select>
+                        <input type="text" id="searchInput" class="search-input" placeholder="🔍 Search movies...">
+                        <button id="randomBtn" class="btn btn-secondary">
+                            <i class="fas fa-dice"></i> Random
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="movies-grid-section">
+            <div class="container">
+                <div id="moviesGrid" class="movies-grid">
+                    <!-- Movies loaded by JS -->
+                </div>
+                <div id="loadingSpinner" class="loading-spinner" style="display: none;">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Loading movies...</p>
+                </div>
+                <div id="noResults" class="no-results" style="display: none;">
+                    <i class="fas fa-search"></i>
+                    <h3>No movies found</h3>
+                    <p>Try adjusting your search or genre filter</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Movie Modal -->
+    <div id="movieModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <!-- Same footer as index.html -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-film"></i>
+                        <span>MovieFlix</span>
+                    </div>
+                    <p>Discover, watch, and share your favorite movies with the world.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="movies.html">Movies</a></li>
+                        <li><a href="favorites.html">Favorites</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 MovieFlix. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/movies.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
