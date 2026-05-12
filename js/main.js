@@ -134,7 +134,6 @@ document.addEventListener('DOMContentLoaded', () => {
         initHeroFloatingPosters();
     }
 
-
     // Animate hero elements
     document.querySelectorAll('.hero-content > *').forEach((el, index) => {
         el.style.animationDelay = `${index * 0.2}s`;
