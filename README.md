@@ -1,1 +1,15 @@
 # movie_rec
+
+movie-recommendation-site/
+├── index.html (Home)
+├── movies.html
+├── favorites.html
+├── about.html
+├── css/
+│   └── style.css
+├── js/
+│   ├── main.js
+│   ├── movies.js
+│   └── favorites.js
+└── images/
+    └── (placeholder images)
